@@ -99,8 +99,14 @@ def run_experiment(
     seed: int = 42,
     num_workers: int = 0,
     download: bool = True,
+    max_tasks: int | None = None,
 ) -> list[dict[str, object]]:
-    """Train sequentially on five two-class CIFAR-10 tasks."""
+    """Train sequentially on CIFAR-10 tasks.
+
+    Set ``max_tasks=1`` to run only the first task.
+    """
+    if max_tasks is not None and not 1 <= max_tasks <= len(CIFAR10_TASKS):
+        raise ValueError(f"max_tasks must be between 1 and {len(CIFAR10_TASKS)}")
     set_seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_transform, test_transform = get_cifar_transforms("cifar10")
@@ -111,7 +117,10 @@ def run_experiment(
         train_transform=train_transform,
         test_transform=test_transform,
     )
-    tasks = [Task(index + 1, classes) for index, classes in enumerate(CIFAR10_TASKS)]
+    tasks = [
+        Task(index + 1, classes)
+        for index, classes in enumerate(CIFAR10_TASKS[:max_tasks])
+    ]
     train_loaders = build_task_loaders(
         train_dataset, tasks, batch_size=batch_size, num_workers=num_workers
     )
@@ -161,6 +170,12 @@ def main() -> None:
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num-workers", type=int, default=0)
+    parser.add_argument(
+        "--max-tasks",
+        type=int,
+        default=None,
+        help="Number of sequential tasks to run (use 1 for Task 1 only).",
+    )
     parser.add_argument("--no-download", action="store_true")
     args = parser.parse_args()
     print(
@@ -173,6 +188,7 @@ def main() -> None:
                 seed=args.seed,
                 num_workers=args.num_workers,
                 download=not args.no_download,
+                max_tasks=args.max_tasks,
             ),
             indent=2,
         )
