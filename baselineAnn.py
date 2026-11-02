@@ -75,6 +75,8 @@ def train_task(
     device: torch.device,
     epochs: int,
     learning_rate: float,
+    task_number: int,
+    progress: bool = False,
 ) -> None:
     """Train the model on one task using cross-entropy and Adam."""
     if epochs <= 0:
@@ -82,12 +84,21 @@ def train_task(
     model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     criterion = nn.CrossEntropyLoss()
-    for _ in range(epochs):
+    for epoch in range(1, epochs + 1):
+        total_loss = 0.0
+        batches = 0
         for inputs, labels in loader:
             optimizer.zero_grad()
             loss = criterion(model(inputs.to(device)), labels.to(device))
             loss.backward()
             optimizer.step()
+            total_loss += loss.item()
+            batches += 1
+        if progress:
+            print(
+                f"Task {task_number}, epoch {epoch}/{epochs}, "
+                f"loss: {total_loss / batches:.4f}"
+            )
 
 
 def run_experiment(
@@ -100,6 +111,7 @@ def run_experiment(
     num_workers: int = 0,
     download: bool = True,
     max_tasks: int | None = None,
+    progress: bool = False,
 ) -> list[dict[str, object]]:
     """Train sequentially on CIFAR-10 tasks.
 
@@ -145,6 +157,8 @@ def run_experiment(
             device=device,
             epochs=epochs,
             learning_rate=learning_rate,
+            task_number=task.number,
+            progress=progress,
         )
         seen_classes.extend(task.classes)
         results.append(
@@ -177,6 +191,7 @@ def main() -> None:
         help="Number of sequential tasks to run (use 1 for Task 1 only).",
     )
     parser.add_argument("--no-download", action="store_true")
+    parser.add_argument("--progress", action="store_true")
     args = parser.parse_args()
     print(
         json.dumps(
@@ -189,6 +204,7 @@ def main() -> None:
                 num_workers=args.num_workers,
                 download=not args.no_download,
                 max_tasks=args.max_tasks,
+                progress=args.progress,
             ),
             indent=2,
         )
