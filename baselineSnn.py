@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import time
 from pathlib import Path
 from typing import Sequence
 
@@ -17,6 +18,8 @@ from torch.utils.data import DataLoader
 from dataset import get_cifar_datasets
 from preprocessing import get_cifar_transforms
 from taskList import CIFAR10_CLASSES, CIFAR10_TASKS, Task, build_task_loaders
+
+DEFAULT_SEEDS = (42, 123, 456, 789, 1011)
 
 
 class BaselineSNN(nn.Module):
@@ -90,13 +93,15 @@ def train_task(
     learning_rate: float,
     task_number: int,
     progress: bool = False,
-) -> None:
+) -> tuple[list[float], float]:
     """Train the SNN on one task using surrogate-gradient backpropagation."""
     if epochs <= 0:
         raise ValueError("epochs must be greater than zero")
     model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     criterion = nn.CrossEntropyLoss()
+    losses = []
+    start_time = time.perf_counter()
     for epoch in range(1, epochs + 1):
         total_loss = 0.0
         batches = 0
@@ -112,6 +117,8 @@ def train_task(
                 f"Task {task_number}, epoch {epoch}/{epochs}, "
                 f"loss: {total_loss / batches:.4f}"
             )
+        losses.append(total_loss / batches)
+    return losses, time.perf_counter() - start_time
 
 
 def run_experiment(
@@ -126,10 +133,45 @@ def run_experiment(
     download: bool = True,
     max_tasks: int | None = None,
     progress: bool = False,
+    seeds: Sequence[int] = DEFAULT_SEEDS,
 ) -> list[dict[str, object]]:
     """Train sequentially on CIFAR-10 tasks using a SpikingJelly SNN."""
     if max_tasks is not None and not 1 <= max_tasks <= len(CIFAR10_TASKS):
         raise ValueError(f"max_tasks must be between 1 and {len(CIFAR10_TASKS)}")
+    if seeds == DEFAULT_SEEDS and seed != 42:
+        seeds = (seed,)
+    all_results = []
+    for run_seed in seeds:
+        all_results.append(
+            _run_single_experiment(
+                data_dir=data_dir,
+                batch_size=batch_size,
+                epochs=epochs,
+                learning_rate=learning_rate,
+                time_steps=time_steps,
+                seed=run_seed,
+                num_workers=num_workers,
+                download=download,
+                max_tasks=max_tasks,
+                progress=progress,
+            )
+        )
+    return all_results
+
+
+def _run_single_experiment(
+    *,
+    data_dir: str | Path,
+    batch_size: int,
+    epochs: int,
+    learning_rate: float,
+    time_steps: int,
+    seed: int,
+    num_workers: int,
+    download: bool,
+    max_tasks: int | None,
+    progress: bool,
+) -> dict[str, object]:
     set_seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_transform, test_transform = get_cifar_transforms("cifar10")
@@ -159,10 +201,12 @@ def run_experiment(
     )
 
     model = BaselineSNN(time_steps=time_steps).to(device)
-    results: list[dict[str, object]] = []
     seen_classes: list[int] = []
+    task_results = []
+    best_task_accuracies: list[float] = []
+    total_training_time = 0.0
     for task, train_loader in zip(tasks, train_loaders):
-        train_task(
+        losses, training_time = train_task(
             model,
             train_loader,
             device=device,
@@ -171,20 +215,50 @@ def run_experiment(
             task_number=task.number,
             progress=progress,
         )
+        total_training_time += training_time
         seen_classes.extend(task.classes)
-        results.append(
+        task_accuracies = [
+            evaluate(model, test_loaders[index], device, tasks[index].classes)
+            for index in range(task.number)
+        ]
+        previous_forgetting = {
+            f"task_{index + 1}": best_task_accuracies[index]
+            - task_accuracies[index]
+            for index in range(task.number - 1)
+        }
+        best_task_accuracies = [
+            max(previous, current)
+            for previous, current in zip(
+                best_task_accuracies + [0.0],
+                task_accuracies,
+            )
+        ]
+        task_results.append(
             {
                 "task": task.number,
                 "classes": [CIFAR10_CLASSES[index] for index in task.classes],
+                "current_task_accuracy": task_accuracies[-1],
                 "seen_accuracy": evaluate(
                     model, full_test_loader, device, seen_classes
                 ),
-                "task_accuracy": evaluate(
-                    model, test_loaders[task.number - 1], device, task.classes
-                ),
+                "previous_task_accuracy": {
+                    f"task_{index + 1}": task_accuracies[index]
+                    for index in range(task.number - 1)
+                },
+                "average_accuracy": sum(task_accuracies) / len(task_accuracies),
+                "forgetting": previous_forgetting,
+                "training_loss": losses,
+                "training_time_seconds": training_time,
+                "task_accuracies": task_accuracies,
             }
         )
-    return results
+    return {
+        "seed": seed,
+        "tasks": task_results,
+        "final_accuracy": task_results[-1]["average_accuracy"],
+        "final_seen_accuracy": task_results[-1]["seen_accuracy"],
+        "total_training_time_seconds": total_training_time,
+    }
 
 
 def main() -> None:
