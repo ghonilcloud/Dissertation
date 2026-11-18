@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Literal
 
+import utilities.windowsTorchRuntime  # noqa: F401
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 

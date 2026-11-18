@@ -1,4 +1,4 @@
-"""SpikingJelly baseline for class-incremental CIFAR-10 learning."""
+"""Baseline ANN and class-incremental CIFAR-10 experiment."""
 
 from __future__ import annotations
 
@@ -10,45 +10,57 @@ from pathlib import Path
 from typing import Sequence
 
 import numpy as np
+import utilities.windowsTorchRuntime  # noqa: F401
 import torch
-from spikingjelly.activation_based import functional, neuron, surrogate
 from torch import nn
 from torch.utils.data import DataLoader
-
-from dataset import get_cifar_datasets
-from preprocessing import get_cifar_transforms
-from taskList import CIFAR10_CLASSES, CIFAR10_TASKS, Task, build_task_loaders
+from utilities.dataset import get_cifar_datasets
+from utilities.preprocessing import get_cifar_transforms
+from utilities.taskList import CIFAR10_CLASSES, CIFAR10_TASKS, Task, build_task_loaders
 
 DEFAULT_SEEDS = (42, 123, 456, 789, 1011)
 
 
-class BaselineSNN(nn.Module):
-    """A fully connected LIF SNN for 32x32 RGB CIFAR images."""
+class BaselineANN(nn.Module):
+    """A fully connected ANN for 32x32 RGB CIFAR images."""
 
-    def __init__(self, num_classes: int = 10, time_steps: int = 10) -> None:
+    def __init__(self, num_classes: int = 10) -> None:
         super().__init__()
-        if time_steps <= 0:
-            raise ValueError("time_steps must be greater than zero")
-        self.time_steps = time_steps
         self.network = nn.Sequential(
             nn.Flatten(),
             nn.Linear(3 * 32 * 32, 512),
-            neuron.LIFNode(surrogate_function=surrogate.Sigmoid()),
+            nn.ReLU(),
             nn.Linear(512, 256),
-            neuron.LIFNode(surrogate_function=surrogate.Sigmoid()),
+            nn.ReLU(),
             nn.Linear(256, num_classes),
         )
 
     def forward(self, inputs: torch.Tensor) -> torch.Tensor:
-        functional.reset_net(self)
-        output = torch.zeros(
-            inputs.shape[0],
-            self.network[-1].out_features,
-            device=inputs.device,
+        return self.network(inputs)
+
+
+class TaskIncrementalANN(nn.Module):
+    """Shared ANN trunk with one two-class head per task (task ID required)."""
+
+    def __init__(self, num_tasks: int = 5) -> None:
+        super().__init__()
+        self.trunk = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(3 * 32 * 32, 512),
+            nn.ReLU(),
+            nn.Linear(512, 256),
+            nn.ReLU(),
         )
-        for _ in range(self.time_steps):
-            output += self.network(inputs)
-        return output / self.time_steps
+        self.heads = nn.ModuleList([nn.Linear(256, 2) for _ in range(num_tasks)])
+        self.task_id = 0
+
+    def set_task(self, task_id: int) -> None:
+        if not 0 <= task_id < len(self.heads):
+            raise ValueError("task_id is outside the configured task heads")
+        self.task_id = task_id
+
+    def forward(self, inputs: torch.Tensor) -> torch.Tensor:
+        return self.heads[self.task_id](self.trunk(inputs))
 
 
 def set_seed(seed: int) -> None:
@@ -94,7 +106,7 @@ def train_task(
     task_number: int,
     progress: bool = False,
 ) -> tuple[list[float], float]:
-    """Train the SNN on one task using surrogate-gradient backpropagation."""
+    """Train the model on one task using cross-entropy and Adam."""
     if epochs <= 0:
         raise ValueError("epochs must be greater than zero")
     model.train()
@@ -127,7 +139,6 @@ def run_experiment(
     batch_size: int = 128,
     epochs: int = 5,
     learning_rate: float = 1e-3,
-    time_steps: int = 10,
     seed: int = 42,
     num_workers: int = 0,
     download: bool = True,
@@ -135,7 +146,10 @@ def run_experiment(
     progress: bool = False,
     seeds: Sequence[int] = DEFAULT_SEEDS,
 ) -> list[dict[str, object]]:
-    """Train sequentially on CIFAR-10 tasks using a SpikingJelly SNN."""
+    """Train sequentially on CIFAR-10 tasks.
+
+    Set ``max_tasks=1`` to run only the first task.
+    """
     if max_tasks is not None and not 1 <= max_tasks <= len(CIFAR10_TASKS):
         raise ValueError(f"max_tasks must be between 1 and {len(CIFAR10_TASKS)}")
     if seeds == DEFAULT_SEEDS and seed != 42:
@@ -148,7 +162,6 @@ def run_experiment(
                 batch_size=batch_size,
                 epochs=epochs,
                 learning_rate=learning_rate,
-                time_steps=time_steps,
                 seed=run_seed,
                 num_workers=num_workers,
                 download=download,
@@ -165,7 +178,6 @@ def _run_single_experiment(
     batch_size: int,
     epochs: int,
     learning_rate: float,
-    time_steps: int,
     seed: int,
     num_workers: int,
     download: bool,
@@ -200,11 +212,12 @@ def _run_single_experiment(
         pin_memory=torch.cuda.is_available(),
     )
 
-    model = BaselineSNN(time_steps=time_steps).to(device)
+    model = BaselineANN().to(device)
     seen_classes: list[int] = []
-    task_results = []
+    task_accuracies: list[float] = []
     best_task_accuracies: list[float] = []
     total_training_time = 0.0
+    task_results = []
     for task, train_loader in zip(tasks, train_loaders):
         losses, training_time = train_task(
             model,
@@ -252,10 +265,11 @@ def _run_single_experiment(
                 "task_accuracies": task_accuracies,
             }
         )
+    final_accuracy = task_results[-1]["average_accuracy"]
     return {
         "seed": seed,
         "tasks": task_results,
-        "final_accuracy": task_results[-1]["average_accuracy"],
+        "final_accuracy": final_accuracy,
         "final_seen_accuracy": task_results[-1]["seen_accuracy"],
         "total_training_time_seconds": total_training_time,
     }
@@ -267,10 +281,14 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
-    parser.add_argument("--time-steps", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num-workers", type=int, default=0)
-    parser.add_argument("--max-tasks", type=int, default=None)
+    parser.add_argument(
+        "--max-tasks",
+        type=int,
+        default=None,
+        help="Number of sequential tasks to run (use 1 for Task 1 only).",
+    )
     parser.add_argument("--no-download", action="store_true")
     parser.add_argument("--progress", action="store_true")
     args = parser.parse_args()
@@ -281,7 +299,6 @@ def main() -> None:
                 batch_size=args.batch_size,
                 epochs=args.epochs,
                 learning_rate=args.learning_rate,
-                time_steps=args.time_steps,
                 seed=args.seed,
                 num_workers=args.num_workers,
                 download=not args.no_download,

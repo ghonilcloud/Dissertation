@@ -1,0 +1,218 @@
+{
+  "seed": 42,
+  "epochs_per_task": 1,
+  "tasks": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "ewc_lambda": 1000.0,
+  "device": "cpu",
+  "ann": {
+    "fisher_before_task_2": {
+      "snapshots": [
+        {
+          "task_snapshot": 1,
+          "sample_count": 128,
+          "overall_mean": 0.0003996689338237047,
+          "overall_max": 10.79175090789795,
+          "overall_sum": 682.3443603515625,
+          "layers": {
+            "network.1.weight": {
+              "mean": 1.2988336493435781e-05,
+              "max": 0.0007081236690282822,
+              "sum": 20.42888641357422
+            },
+            "network.1.bias": {
+              "mean": 8.195003829314373e-06,
+              "max": 0.00020085976575501263,
+              "sum": 0.004195841960608959
+            },
+            "network.3.weight": {
+              "mean": 0.0007308947970159352,
+              "max": 0.08965003490447998,
+              "sum": 95.79984283447266
+            },
+            "network.3.bias": {
+              "mean": 0.00010645615111570805,
+              "max": 0.0012700471561402082,
+              "sum": 0.02725277468562126
+            },
+            "network.5.weight": {
+              "mean": 0.2209981232881546,
+              "max": 10.79175090789795,
+              "sum": 565.7551879882812
+            },
+            "network.5.bias": {
+              "mean": 0.03291475027799606,
+              "max": 0.16466446220874786,
+              "sum": 0.32914748787879944
+            }
+          }
+        }
+      ]
+    },
+    "fisher_sample_limit": 128,
+    "ewc_checks": [
+      {
+        "optimizer_steps_completed": 0,
+        "cross_entropy": 13.097667694091797,
+        "ewc_penalty_unweighted": 0.0,
+        "ewc_penalty_weighted": 0.0,
+        "cross_entropy_gradient_norm": 35.38772201538086,
+        "weighted_ewc_gradient_norm": 0.0,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 0.0
+      },
+      {
+        "optimizer_steps_completed": 1,
+        "cross_entropy": 7.016310214996338,
+        "ewc_penalty_unweighted": 0.0006822772556915879,
+        "ewc_penalty_weighted": 0.341138631105423,
+        "cross_entropy_gradient_norm": 20.634578704833984,
+        "weighted_ewc_gradient_norm": 52.50851821899414,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 2.5446857418365014
+      },
+      {
+        "optimizer_steps_completed": 2,
+        "cross_entropy": 4.5883026123046875,
+        "ewc_penalty_unweighted": 0.0007155244238674641,
+        "ewc_penalty_weighted": 0.3577622175216675,
+        "cross_entropy_gradient_norm": 12.877274513244629,
+        "weighted_ewc_gradient_norm": 35.4658088684082,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 2.7541393818956528
+      },
+      {
+        "optimizer_steps_completed": 9,
+        "cross_entropy": 1.2558380365371704,
+        "ewc_penalty_unweighted": 0.001618911512196064,
+        "ewc_penalty_weighted": 0.8094557523727417,
+        "cross_entropy_gradient_norm": 5.134382247924805,
+        "weighted_ewc_gradient_norm": 19.307636260986328,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 3.760459453284768
+      },
+      {
+        "optimizer_steps_completed": 49,
+        "cross_entropy": 0.6934006214141846,
+        "ewc_penalty_unweighted": 0.0005055292858742177,
+        "ewc_penalty_weighted": 0.25276464223861694,
+        "cross_entropy_gradient_norm": 8.800000190734863,
+        "weighted_ewc_gradient_norm": 2.1695544719696045,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 0.24654027556202032
+      }
+    ],
+    "parameter_drift_after_task_2": {
+      "l2_norm": 8.154253959655762,
+      "relative_l2_norm": 0.44481625377466844
+    },
+    "task_1_accuracy_after_task_1": 0.7715,
+    "task_1_accuracy_after_task_2": 0.001,
+    "task_1_accuracy_drop": 0.7705,
+    "task_2_training_loss": 1.4358420809613
+  },
+  "snn": {
+    "fisher_before_task_2": {
+      "snapshots": [
+        {
+          "task_snapshot": 1,
+          "sample_count": 128,
+          "overall_mean": 3.208807538612746e-05,
+          "overall_max": 0.2031901776790619,
+          "overall_sum": 54.78313446044922,
+          "layers": {
+            "network.1.weight": {
+              "mean": 1.3834510355081875e-06,
+              "max": 9.371750638820231e-05,
+              "sum": 2.17598032951355
+            },
+            "network.1.bias": {
+              "mean": 8.821816663839854e-07,
+              "max": 2.4399087124038488e-05,
+              "sum": 0.00045167701318860054
+            },
+            "network.3.weight": {
+              "mean": 1.9108803826384246e-05,
+              "max": 0.00030807906296104193,
+              "sum": 2.504629135131836
+            },
+            "network.3.bias": {
+              "mean": 2.9599596018670127e-05,
+              "max": 0.00030822661938145757,
+              "sum": 0.0075774965807795525
+            },
+            "network.5.weight": {
+              "mean": 0.01940944604575634,
+              "max": 0.2031901776790619,
+              "sum": 49.68818283081055
+            },
+            "network.5.bias": {
+              "mean": 0.040631793439388275,
+              "max": 0.2031901776790619,
+              "sum": 0.40631791949272156
+            }
+          }
+        }
+      ]
+    },
+    "fisher_sample_limit": 128,
+    "ewc_checks": [
+      {
+        "optimizer_steps_completed": 0,
+        "cross_entropy": 8.083529472351074,
+        "ewc_penalty_unweighted": 0.0,
+        "ewc_penalty_weighted": 0.0,
+        "cross_entropy_gradient_norm": 10.973631858825684,
+        "weighted_ewc_gradient_norm": 0.0,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 0.0
+      },
+      {
+        "optimizer_steps_completed": 1,
+        "cross_entropy": 7.6687726974487305,
+        "ewc_penalty_unweighted": 5.478086677612737e-05,
+        "ewc_penalty_weighted": 0.027390433475375175,
+        "cross_entropy_gradient_norm": 10.813543319702148,
+        "weighted_ewc_gradient_norm": 3.082073211669922,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 0.28501973132658753
+      },
+      {
+        "optimizer_steps_completed": 2,
+        "cross_entropy": 7.159651756286621,
+        "ewc_penalty_unweighted": 0.00020355806918814778,
+        "ewc_penalty_weighted": 0.1017790362238884,
+        "cross_entropy_gradient_norm": 10.430986404418945,
+        "weighted_ewc_gradient_norm": 5.992343902587891,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 0.5744752864455193
+      },
+      {
+        "optimizer_steps_completed": 9,
+        "cross_entropy": 4.7691121101379395,
+        "ewc_penalty_unweighted": 0.0005433129263110459,
+        "ewc_penalty_weighted": 0.27165645360946655,
+        "cross_entropy_gradient_norm": 8.430680274963379,
+        "weighted_ewc_gradient_norm": 8.453554153442383,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 1.0027131711478767
+      },
+      {
+        "optimizer_steps_completed": 49,
+        "cross_entropy": 0.6808136105537415,
+        "ewc_penalty_unweighted": 0.0001417520979885012,
+        "ewc_penalty_weighted": 0.07087604701519012,
+        "cross_entropy_gradient_norm": 0.5167756676673889,
+        "weighted_ewc_gradient_norm": 0.5627142190933228,
+        "weighted_ewc_to_ce_gradient_norm_ratio": 1.0888945712813654
+      }
+    ],
+    "parameter_drift_after_task_2": {
+      "l2_norm": 15.361251831054688,
+      "relative_l2_norm": 0.6697543743865846
+    },
+    "task_1_accuracy_after_task_1": 0.784,
+    "task_1_accuracy_after_task_2": 0.0,
+    "task_1_accuracy_drop": 0.784,
+    "task_2_training_loss": 1.8349406304238718
+  }
+}

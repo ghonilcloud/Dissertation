@@ -1,0 +1,446 @@
+{
+  "seed": 42,
+  "model": "ann",
+  "scenario": "class",
+  "epochs_per_task": 5,
+  "optimizer_updates_per_task": 395,
+  "batch_size": 128,
+  "ewc_lambdas": [
+    10,
+    100,
+    1000
+  ],
+  "fisher_method": "sampled",
+  "fisher_samples": 512,
+  "task_1_training_seconds": 18.130385900003603,
+  "task_1_curve": [
+    {
+      "global_step": 50,
+      "cross_entropy": 0.47318994998931885,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8265,
+        0.0
+      ],
+      "task_1_accuracy": 0.8265,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 100,
+      "cross_entropy": 0.4539133310317993,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8265,
+        0.0
+      ],
+      "task_1_accuracy": 0.8265,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 150,
+      "cross_entropy": 0.3913359045982361,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8515,
+        0.0
+      ],
+      "task_1_accuracy": 0.8515,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 200,
+      "cross_entropy": 0.4714309573173523,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.839,
+        0.0
+      ],
+      "task_1_accuracy": 0.839,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 250,
+      "cross_entropy": 0.3923429846763611,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8255,
+        0.0
+      ],
+      "task_1_accuracy": 0.8255,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 300,
+      "cross_entropy": 0.38920584321022034,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8555,
+        0.0
+      ],
+      "task_1_accuracy": 0.8555,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 350,
+      "cross_entropy": 0.2773702144622803,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8655,
+        0.0
+      ],
+      "task_1_accuracy": 0.8655,
+      "task_2_accuracy": 0.0
+    },
+    {
+      "global_step": 395,
+      "cross_entropy": 0.3049978017807007,
+      "weighted_ewc_penalty": 0.0,
+      "task_accuracies": [
+        0.8655,
+        0.0
+      ],
+      "task_1_accuracy": 0.8655,
+      "task_2_accuracy": 0.0
+    }
+  ],
+  "task_1_accuracy": 0.8655,
+  "task_1_checkpoint": "results\\ewc_checkpoints\\ann_class_epochs5_seed42_sampled.pt",
+  "lambda_results": [
+    {
+      "lambda": 10,
+      "task_1_accuracy_after_task_1": 0.8655,
+      "final_task_accuracies": [
+        0.0,
+        0.739
+      ],
+      "final_average_accuracy": 0.3695,
+      "task_2_training_seconds": 22.137400900013745,
+      "task_2_curve": [
+        {
+          "global_step": 400,
+          "cross_entropy": 2.830070972442627,
+          "weighted_ewc_penalty": 0.020366530865430832,
+          "task_accuracies": [
+            0.6315,
+            0.061
+          ],
+          "task_1_accuracy": 0.6315,
+          "task_2_accuracy": 0.061
+        },
+        {
+          "global_step": 450,
+          "cross_entropy": 0.6050675511360168,
+          "weighted_ewc_penalty": 0.030048206448554993,
+          "task_accuracies": [
+            0.0,
+            0.6695
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.6695
+        },
+        {
+          "global_step": 500,
+          "cross_entropy": 0.5633655190467834,
+          "weighted_ewc_penalty": 0.016422975808382034,
+          "task_accuracies": [
+            0.0,
+            0.7045
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7045
+        },
+        {
+          "global_step": 550,
+          "cross_entropy": 0.43964847922325134,
+          "weighted_ewc_penalty": 0.01359362993389368,
+          "task_accuracies": [
+            0.0,
+            0.7275
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7275
+        },
+        {
+          "global_step": 600,
+          "cross_entropy": 0.48466846346855164,
+          "weighted_ewc_penalty": 0.0121938306838274,
+          "task_accuracies": [
+            0.0,
+            0.723
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.723
+        },
+        {
+          "global_step": 650,
+          "cross_entropy": 0.4615068733692169,
+          "weighted_ewc_penalty": 0.011082947254180908,
+          "task_accuracies": [
+            0.0,
+            0.7415
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7415
+        },
+        {
+          "global_step": 700,
+          "cross_entropy": 0.5495777130126953,
+          "weighted_ewc_penalty": 0.01059049367904663,
+          "task_accuracies": [
+            0.0,
+            0.7315
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7315
+        },
+        {
+          "global_step": 750,
+          "cross_entropy": 0.4286643862724304,
+          "weighted_ewc_penalty": 0.010535039007663727,
+          "task_accuracies": [
+            0.0,
+            0.7345
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7345
+        },
+        {
+          "global_step": 790,
+          "cross_entropy": 0.40603575110435486,
+          "weighted_ewc_penalty": 0.010571758262813091,
+          "task_accuracies": [
+            0.0,
+            0.739
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.739
+        }
+      ],
+      "final_global_step": 790
+    },
+    {
+      "lambda": 100,
+      "task_1_accuracy_after_task_1": 0.8655,
+      "final_task_accuracies": [
+        0.0,
+        0.747
+      ],
+      "final_average_accuracy": 0.3735,
+      "task_2_training_seconds": 27.261835200013593,
+      "task_2_curve": [
+        {
+          "global_step": 400,
+          "cross_entropy": 2.840437412261963,
+          "weighted_ewc_penalty": 0.17403186857700348,
+          "task_accuracies": [
+            0.63,
+            0.055
+          ],
+          "task_1_accuracy": 0.63,
+          "task_2_accuracy": 0.055
+        },
+        {
+          "global_step": 450,
+          "cross_entropy": 0.6066579818725586,
+          "weighted_ewc_penalty": 0.09183875471353531,
+          "task_accuracies": [
+            0.0,
+            0.6745
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.6745
+        },
+        {
+          "global_step": 500,
+          "cross_entropy": 0.5482281446456909,
+          "weighted_ewc_penalty": 0.05503463372588158,
+          "task_accuracies": [
+            0.0,
+            0.709
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.709
+        },
+        {
+          "global_step": 550,
+          "cross_entropy": 0.4312301576137543,
+          "weighted_ewc_penalty": 0.040116943418979645,
+          "task_accuracies": [
+            0.0,
+            0.7325
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7325
+        },
+        {
+          "global_step": 600,
+          "cross_entropy": 0.49064210057258606,
+          "weighted_ewc_penalty": 0.034976158291101456,
+          "task_accuracies": [
+            0.0,
+            0.721
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.721
+        },
+        {
+          "global_step": 650,
+          "cross_entropy": 0.4656273424625397,
+          "weighted_ewc_penalty": 0.032497379928827286,
+          "task_accuracies": [
+            0.0,
+            0.7275
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7275
+        },
+        {
+          "global_step": 700,
+          "cross_entropy": 0.549809992313385,
+          "weighted_ewc_penalty": 0.03056974895298481,
+          "task_accuracies": [
+            0.0,
+            0.7105
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7105
+        },
+        {
+          "global_step": 750,
+          "cross_entropy": 0.41736435890197754,
+          "weighted_ewc_penalty": 0.03023380972445011,
+          "task_accuracies": [
+            0.0,
+            0.7325
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7325
+        },
+        {
+          "global_step": 790,
+          "cross_entropy": 0.4290272295475006,
+          "weighted_ewc_penalty": 0.03007526695728302,
+          "task_accuracies": [
+            0.0,
+            0.747
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.747
+        }
+      ],
+      "final_global_step": 790
+    },
+    {
+      "lambda": 1000,
+      "task_1_accuracy_after_task_1": 0.8655,
+      "final_task_accuracies": [
+        0.0,
+        0.7365
+      ],
+      "final_average_accuracy": 0.36825,
+      "task_2_training_seconds": 20.88397409999743,
+      "task_2_curve": [
+        {
+          "global_step": 400,
+          "cross_entropy": 2.9534521102905273,
+          "weighted_ewc_penalty": 0.3183884024620056,
+          "task_accuracies": [
+            0.638,
+            0.036
+          ],
+          "task_1_accuracy": 0.638,
+          "task_2_accuracy": 0.036
+        },
+        {
+          "global_step": 450,
+          "cross_entropy": 0.6050351858139038,
+          "weighted_ewc_penalty": 0.2081635594367981,
+          "task_accuracies": [
+            0.0,
+            0.6755
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.6755
+        },
+        {
+          "global_step": 500,
+          "cross_entropy": 0.5580955147743225,
+          "weighted_ewc_penalty": 0.10868234932422638,
+          "task_accuracies": [
+            0.0,
+            0.6875
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.6875
+        },
+        {
+          "global_step": 550,
+          "cross_entropy": 0.42850804328918457,
+          "weighted_ewc_penalty": 0.07806574553251266,
+          "task_accuracies": [
+            0.0,
+            0.7375
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7375
+        },
+        {
+          "global_step": 600,
+          "cross_entropy": 0.48524004220962524,
+          "weighted_ewc_penalty": 0.06674982607364655,
+          "task_accuracies": [
+            0.0,
+            0.741
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.741
+        },
+        {
+          "global_step": 650,
+          "cross_entropy": 0.49995729327201843,
+          "weighted_ewc_penalty": 0.06388624012470245,
+          "task_accuracies": [
+            0.0,
+            0.7065
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7065
+        },
+        {
+          "global_step": 700,
+          "cross_entropy": 0.5805439352989197,
+          "weighted_ewc_penalty": 0.05503572151064873,
+          "task_accuracies": [
+            0.0,
+            0.705
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.705
+        },
+        {
+          "global_step": 750,
+          "cross_entropy": 0.4248608946800232,
+          "weighted_ewc_penalty": 0.05076209828257561,
+          "task_accuracies": [
+            0.0,
+            0.7225
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7225
+        },
+        {
+          "global_step": 790,
+          "cross_entropy": 0.430353581905365,
+          "weighted_ewc_penalty": 0.0485098771750927,
+          "task_accuracies": [
+            0.0,
+            0.7365
+          ],
+          "task_1_accuracy": 0.0,
+          "task_2_accuracy": 0.7365
+        }
+      ],
+      "final_global_step": 790
+    }
+  ]
+}

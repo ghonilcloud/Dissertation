@@ -7,14 +7,14 @@ import json
 from pathlib import Path
 from typing import Any
 
-from baselineAnn import DEFAULT_SEEDS, run_experiment as run_ann
-from baselineSnn import run_experiment as run_snn
+from baseline.baselineAnn import DEFAULT_SEEDS, run_experiment as run_ann
+from baseline.baselineSnn import run_experiment as run_snn
 
 
 EXPERIMENT_CONDITIONS = (
-    # {"epochs": 1, "time_steps": 2},
+    {"epochs": 1, "time_steps": 2},
     # {"epochs": 2, "time_steps": 4},
-    {"epochs": 5, "time_steps": 7},
+    # {"epochs": 5, "time_steps": 7},
     # {"epochs": 10, "time_steps": 10},
     # {"epochs": 20, "time_steps": 10},
     # {"epochs": 25, "time_steps": 10},

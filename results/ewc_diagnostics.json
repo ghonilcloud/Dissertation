@@ -1,0 +1,136 @@
+{
+  "seed": 42,
+  "epochs_per_task": 1,
+  "tasks": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "ewc_lambda": 100.0,
+  "device": "cpu",
+  "ann": {
+    "fisher_before_task_2": {
+      "snapshots": [
+        {
+          "task_snapshot": 1,
+          "overall_mean": 5.156295628694352e-06,
+          "overall_max": 0.17487697303295135,
+          "overall_sum": 8.80320930480957,
+          "layers": {
+            "network.1.weight": {
+              "mean": 1.1232224750301611e-07,
+              "max": 1.3815934835292865e-05,
+              "sum": 0.17666761577129364
+            },
+            "network.1.bias": {
+              "mean": 9.364804753886347e-08,
+              "max": 3.4006404803221812e-06,
+              "sum": 4.7947800339898095e-05
+            },
+            "network.3.weight": {
+              "mean": 8.253999112639576e-06,
+              "max": 0.0019536400213837624,
+              "sum": 1.0818681716918945
+            },
+            "network.3.bias": {
+              "mean": 1.5413207847814192e-06,
+              "max": 1.9820921806967817e-05,
+              "sum": 0.0003945781209040433
+            },
+            "network.5.weight": {
+              "mean": 0.0029448638670146465,
+              "max": 0.17487697303295135,
+              "sum": 7.538851737976074
+            },
+            "network.5.bias": {
+              "mean": 0.0005378788919188082,
+              "max": 0.0026955408975481987,
+              "sum": 0.00537878880277276
+            }
+          }
+        }
+      ]
+    },
+    "first_batch": {
+      "cross_entropy": 11.813090324401855,
+      "ewc_penalty_unweighted": 0.0,
+      "ewc_penalty_weighted": 0.0,
+      "cross_entropy_gradient_norm": 32.26685333251953,
+      "weighted_ewc_gradient_norm": 0.0,
+      "weighted_ewc_to_ce_gradient_norm_ratio": 0.0
+    },
+    "parameter_drift_after_task_2": {
+      "l2_norm": 11.323366165161133,
+      "relative_l2_norm": 0.6176919853889911
+    },
+    "task_1_accuracy_after_task_1": 0.7715,
+    "task_1_accuracy_after_task_2": 0.0,
+    "task_1_accuracy_drop": 0.7715,
+    "task_2_training_loss": 1.0500404857381989
+  },
+  "snn": {
+    "fisher_before_task_2": {
+      "snapshots": [
+        {
+          "task_snapshot": 1,
+          "overall_mean": 2.668330694177712e-07,
+          "overall_max": 0.0017644924810156226,
+          "overall_sum": 0.4555571377277374,
+          "layers": {
+            "network.1.weight": {
+              "mean": 9.394376832005946e-09,
+              "max": 5.165902052794991e-07,
+              "sum": 0.0147760771214962
+            },
+            "network.1.bias": {
+              "mean": 6.5494067946758605e-09,
+              "max": 1.4085229338434146e-07,
+              "sum": 3.3532962788740406e-06
+            },
+            "network.3.weight": {
+              "mean": 1.6919361200962157e-07,
+              "max": 3.231795744795818e-06,
+              "sum": 0.02217654511332512
+            },
+            "network.3.bias": {
+              "mean": 2.616871768168494e-07,
+              "max": 3.0904081995686283e-06,
+              "sum": 6.699191726511344e-05
+            },
+            "network.5.weight": {
+              "mean": 0.00016217194206546992,
+              "max": 0.0017644924810156226,
+              "sum": 0.4151601791381836
+            },
+            "network.5.bias": {
+              "mean": 0.00033739666105248034,
+              "max": 0.0017126204911619425,
+              "sum": 0.0033739665523171425
+            }
+          }
+        }
+      ]
+    },
+    "first_batch": {
+      "cross_entropy": 8.16020679473877,
+      "ewc_penalty_unweighted": 0.0,
+      "ewc_penalty_weighted": 0.0,
+      "cross_entropy_gradient_norm": 10.957812309265137,
+      "weighted_ewc_gradient_norm": 0.0,
+      "weighted_ewc_to_ce_gradient_norm_ratio": 0.0
+    },
+    "parameter_drift_after_task_2": {
+      "l2_norm": 17.58359718322754,
+      "relative_l2_norm": 0.7666491807074096
+    },
+    "task_1_accuracy_after_task_1": 0.784,
+    "task_1_accuracy_after_task_2": 0.0,
+    "task_1_accuracy_drop": 0.784,
+    "task_2_training_loss": 1.6502365681189526
+  }
+}

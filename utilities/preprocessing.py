@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+import utilities.windowsTorchRuntime  # noqa: F401
 from torchvision import transforms
 
 
