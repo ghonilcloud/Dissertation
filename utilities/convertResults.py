@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+# python -m utilities.convertResults results/ewc_experiments.json
 
 def _format_value(value: Any) -> Any:
     """Format values for locales using commas as decimal separators."""

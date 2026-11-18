@@ -167,12 +167,15 @@ def run_experiment(
     max_tasks: int | None = None,
     progress: bool = False,
     seeds: Sequence[int] = DEFAULT_SEEDS,
+    scenario: str = "class",
 ) -> list[dict[str, object]]:
     """Train sequentially on CIFAR-10 tasks using a SpikingJelly SNN."""
     if max_tasks is not None and not 1 <= max_tasks <= len(CIFAR10_TASKS):
         raise ValueError(f"max_tasks must be between 1 and {len(CIFAR10_TASKS)}")
     if seeds == DEFAULT_SEEDS and seed != 42:
         seeds = (seed,)
+    if scenario not in {"class", "task"}:
+        raise ValueError("scenario must be 'class' or 'task'")
     all_results = []
     for run_seed in seeds:
         all_results.append(
@@ -187,6 +190,7 @@ def run_experiment(
                 download=download,
                 max_tasks=max_tasks,
                 progress=progress,
+                scenario=scenario,
             )
         )
     return all_results
@@ -204,6 +208,7 @@ def _run_single_experiment(
     download: bool,
     max_tasks: int | None,
     progress: bool,
+    scenario: str,
 ) -> dict[str, object]:
     set_seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -220,10 +225,12 @@ def _run_single_experiment(
         for index, classes in enumerate(CIFAR10_TASKS[:max_tasks])
     ]
     train_loaders = build_task_loaders(
-        train_dataset, tasks, batch_size=batch_size, num_workers=num_workers
+        train_dataset, tasks, batch_size=batch_size, num_workers=num_workers,
+        remap_labels=scenario == "task",
     )
     test_loaders = build_task_loaders(
-        test_dataset, tasks, batch_size=batch_size, num_workers=num_workers
+        test_dataset, tasks, batch_size=batch_size, num_workers=num_workers,
+        remap_labels=scenario == "task",
     )
     full_test_loader = DataLoader(
         test_dataset,
@@ -233,12 +240,18 @@ def _run_single_experiment(
         pin_memory=torch.cuda.is_available(),
     )
 
-    model = BaselineSNN(time_steps=time_steps).to(device)
+    model = (
+        BaselineSNN(time_steps=time_steps)
+        if scenario == "class"
+        else TaskIncrementalSNN(num_tasks=len(tasks), time_steps=time_steps)
+    ).to(device)
     seen_classes: list[int] = []
     task_results = []
     best_task_accuracies: list[float] = []
     total_training_time = 0.0
     for task, train_loader in zip(tasks, train_loaders):
+        if scenario == "task":
+            model.set_task(task.number - 1)
         losses, training_time = train_task(
             model,
             train_loader,
@@ -250,10 +263,16 @@ def _run_single_experiment(
         )
         total_training_time += training_time
         seen_classes.extend(task.classes)
-        task_accuracies = [
-            evaluate(model, test_loaders[index], device, tasks[index].classes)
-            for index in range(task.number)
-        ]
+        task_accuracies = []
+        for index in range(task.number):
+            if scenario == "task":
+                # Task mode: the model is told the task, so use that task's head.
+                model.set_task(index)
+                task_accuracies.append(evaluate(model, test_loaders[index], device))
+            else:
+                task_accuracies.append(
+                    evaluate(model, test_loaders[index], device, tasks[index].classes)
+                )
         previous_forgetting = {
             f"task_{index + 1}": best_task_accuracies[index]
             - task_accuracies[index]
@@ -271,8 +290,10 @@ def _run_single_experiment(
                 "task": task.number,
                 "classes": [CIFAR10_CLASSES[index] for index in task.classes],
                 "current_task_accuracy": task_accuracies[-1],
-                "seen_accuracy": evaluate(
-                    model, full_test_loader, device, seen_classes
+                "seen_accuracy": (
+                    sum(task_accuracies) / len(task_accuracies)
+                    if scenario == "task"
+                    else evaluate(model, full_test_loader, device, seen_classes)
                 ),
                 "previous_task_accuracy": {
                     f"task_{index + 1}": task_accuracies[index]
@@ -287,6 +308,7 @@ def _run_single_experiment(
         )
     return {
         "seed": seed,
+        "scenario": scenario,
         "tasks": task_results,
         "final_accuracy": task_results[-1]["average_accuracy"],
         "final_seen_accuracy": task_results[-1]["seen_accuracy"],

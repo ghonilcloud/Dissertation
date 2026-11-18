@@ -13,8 +13,8 @@ from baseline.baselineSnn import run_experiment as run_snn
 
 EXPERIMENT_CONDITIONS = (
     {"epochs": 1, "time_steps": 2},
-    # {"epochs": 2, "time_steps": 4},
-    # {"epochs": 5, "time_steps": 7},
+    {"epochs": 2, "time_steps": 4},
+    {"epochs": 5, "time_steps": 7},
     # {"epochs": 10, "time_steps": 10},
     # {"epochs": 20, "time_steps": 10},
     # {"epochs": 25, "time_steps": 10},
@@ -50,6 +50,7 @@ def run_baseline_grid(
     max_tasks: int | None = None,
     progress: bool = True,
     output_path: str | Path = "results/baseline_experiments.json",
+    scenario: str = "task", # or class for 10-way
 ) -> dict[str, Any]:
     """Run every ANN/SNN condition for all configured random seeds.
 
@@ -68,7 +69,7 @@ def run_baseline_grid(
         time_steps = condition["time_steps"]
         print(
             f"Condition {condition_number}/{len(EXPERIMENT_CONDITIONS)}: "
-            f"{epochs} epochs, {time_steps} SNN time steps"
+            f"{epochs} epochs, {time_steps} SNN time steps, scenario={scenario}"
         )
         ann_runs = run_ann(
             data_dir=data_dir,
@@ -80,6 +81,7 @@ def run_baseline_grid(
             max_tasks=max_tasks,
             progress=progress,
             seeds=DEFAULT_SEEDS,
+            scenario=scenario,
         )
         snn_runs = run_snn(
             data_dir=data_dir,
@@ -92,10 +94,12 @@ def run_baseline_grid(
             max_tasks=max_tasks,
             progress=progress,
             seeds=DEFAULT_SEEDS,
+            scenario=scenario,
         )
         condition_result = {
             "epochs": epochs,
             "snn_time_steps": time_steps,
+            "scenario": scenario,
             "ann": summarize_model_results(ann_runs),
             "snn": summarize_model_results(snn_runs),
         }
@@ -113,6 +117,7 @@ def main() -> None:
     parser.add_argument("--num-workers", type=int, default=0)
     parser.add_argument("--max-tasks", type=int, default=None)
     parser.add_argument("--output", default="results/baseline_experiments.json")
+    parser.add_argument("--scenario", choices=("class", "task"), default="class")
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--no-progress", action="store_true")
     args = parser.parse_args()
@@ -125,6 +130,7 @@ def main() -> None:
         max_tasks=args.max_tasks,
         progress=not args.no_progress,
         output_path=args.output,
+        scenario=args.scenario,
     )
 
 

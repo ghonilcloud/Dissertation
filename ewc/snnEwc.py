@@ -82,7 +82,6 @@ def run_experiment(
             if scenario == "class"
             else TaskIncrementalSNN(num_tasks=len(tasks), time_steps=time_steps)
         ).to(device)
-        optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
         criterion = nn.CrossEntropyLoss()
         ewc = EWC(fisher_samples=fisher_samples, fisher_method=fisher_method)
         replay = Replay(None if joint else replay_per_task, batch_size)
@@ -94,6 +93,8 @@ def run_experiment(
         for task, train_loader in zip(tasks, train_loaders):
             if scenario == "task":
                 model.set_task(task.number - 1)
+            # Fresh optimizer per task, matching the baselines and ANN-EWC.
+            optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
             losses = []
             start = time.perf_counter()
             for epoch in range(1, epochs + 1):
