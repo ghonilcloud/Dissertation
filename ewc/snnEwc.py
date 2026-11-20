@@ -50,6 +50,8 @@ def run_experiment(
     results = []
     for run_seed in run_seeds:
         set_seed(run_seed)
+        if progress:
+            print(f"[{time.strftime('%H:%M:%S')}] SNN-EWC seed {run_seed} starting")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         train_transform, test_transform = get_cifar_transforms("cifar10")
         train_dataset, test_dataset = get_cifar_datasets(
@@ -115,7 +117,7 @@ def run_experiment(
                 losses.append(total_loss / batches)
                 if progress:
                     print(
-                        f"Task {task.number}, epoch {epoch}/{epochs}, "
+                        f"[{time.strftime('%H:%M:%S')}] Task {task.number}, epoch {epoch}/{epochs}, "
                         f"loss: {losses[-1]:.4f}"
                     )
             elapsed = time.perf_counter() - start
@@ -123,6 +125,8 @@ def run_experiment(
             if ewc_lambda > 0:
                 ewc.consolidate(model, train_loader, device)
             replay.add(train_loader, task.number - 1)
+            if progress:
+                print(f"[{time.strftime('%H:%M:%S')}] Task {task.number} done ({elapsed:.1f}s training)")
             seen_classes.extend(task.classes)
             accuracies = []
             for index in range(task.number):

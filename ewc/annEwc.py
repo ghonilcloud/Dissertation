@@ -186,7 +186,7 @@ def train_task(
             batches += 1
         losses.append(total_loss / batches)
         if progress:
-            print(f"Task {task_number}, epoch {epoch}/{epochs}, loss: {losses[-1]:.4f}")
+            print(f"[{time.strftime('%H:%M:%S')}] Task {task_number}, epoch {epoch}/{epochs}, loss: {losses[-1]:.4f}")
     return losses, time.perf_counter() - start
 
 
@@ -216,6 +216,8 @@ def run_experiment(
     all_results = []
     for run_seed in seeds if seed == 42 else (seed,):
         set_seed(run_seed)
+        if progress:
+            print(f"[{time.strftime('%H:%M:%S')}] ANN-EWC seed {run_seed} starting")
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         train_transform, test_transform = get_cifar_transforms("cifar10")
         train_dataset, test_dataset = get_cifar_datasets(
@@ -252,6 +254,8 @@ def run_experiment(
             if ewc_lambda > 0:
                 ewc.consolidate(model, train_loader, device)
             replay.add(train_loader, task.number - 1)
+            if progress:
+                print(f"[{time.strftime('%H:%M:%S')}] Task {task.number} done ({elapsed:.1f}s training)")
             seen_classes.extend(task.classes)
             accuracies = []
             for i in range(task.number):

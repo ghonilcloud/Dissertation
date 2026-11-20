@@ -1,0 +1,1018 @@
+{
+  "seeds": [
+    42,
+    123,
+    456
+  ],
+  "conditions": [
+    {
+      "epochs": 5,
+      "snn_time_steps": 7,
+      "ewc_lambda": 100.0,
+      "fisher_samples": 1024,
+      "fisher_method": "empirical",
+      "scenario": "task",
+      "replay_per_task": 0,
+      "ann": {
+        "runs": [
+          {
+            "seed": 42,
+            "scenario": "task",
+            "ewc_lambda": 100.0,
+            "replay_per_task": 0,
+            "tasks": [
+              {
+                "task": 1,
+                "classes": [
+                  "airplane",
+                  "automobile"
+                ],
+                "current_task_accuracy": 0.86,
+                "seen_accuracy": 0.86,
+                "previous_task_accuracy": {},
+                "average_accuracy": 0.86,
+                "forgetting": {},
+                "training_loss": [
+                  0.47448322855973546,
+                  0.3987348958661285,
+                  0.36896713549577737,
+                  0.3583120962109747,
+                  0.3575407913591288
+                ],
+                "training_time_seconds": 15.244435599999633,
+                "task_accuracies": [
+                  0.86
+                ]
+              },
+              {
+                "task": 2,
+                "classes": [
+                  "bird",
+                  "cat"
+                ],
+                "current_task_accuracy": 0.7225,
+                "seen_accuracy": 0.747,
+                "previous_task_accuracy": {
+                  "task_1": 0.7715
+                },
+                "average_accuracy": 0.747,
+                "forgetting": {
+                  "task_1": 0.08850000000000002
+                },
+                "training_loss": [
+                  0.598709825096251,
+                  0.5746312118783782,
+                  0.5608277898046035,
+                  0.5571228096002265,
+                  0.5514901691599737
+                ],
+                "training_time_seconds": 21.801752999999735,
+                "task_accuracies": [
+                  0.7715,
+                  0.7225
+                ]
+              },
+              {
+                "task": 3,
+                "classes": [
+                  "deer",
+                  "dog"
+                ],
+                "current_task_accuracy": 0.75,
+                "seen_accuracy": 0.7488333333333334,
+                "previous_task_accuracy": {
+                  "task_1": 0.8185,
+                  "task_2": 0.678
+                },
+                "average_accuracy": 0.7488333333333334,
+                "forgetting": {
+                  "task_1": 0.04149999999999998,
+                  "task_2": 0.044499999999999984
+                },
+                "training_loss": [
+                  0.566708881643754,
+                  0.5387622706497772,
+                  0.5301056677782083,
+                  0.5307315252249754,
+                  0.5217324253879015
+                ],
+                "training_time_seconds": 23.841615100000126,
+                "task_accuracies": [
+                  0.8185,
+                  0.678,
+                  0.75
+                ]
+              },
+              {
+                "task": 4,
+                "classes": [
+                  "frog",
+                  "horse"
+                ],
+                "current_task_accuracy": 0.873,
+                "seen_accuracy": 0.7665,
+                "previous_task_accuracy": {
+                  "task_1": 0.803,
+                  "task_2": 0.64,
+                  "task_3": 0.75
+                },
+                "average_accuracy": 0.7665,
+                "forgetting": {
+                  "task_1": 0.05699999999999994,
+                  "task_2": 0.08250000000000002,
+                  "task_3": 0.0
+                },
+                "training_loss": [
+                  0.5892092408258703,
+                  0.5003865323489225,
+                  0.49615769031681595,
+                  0.4641569867918763,
+                  0.45288713332972946
+                ],
+                "training_time_seconds": 26.172604400000637,
+                "task_accuracies": [
+                  0.803,
+                  0.64,
+                  0.75,
+                  0.873
+                ]
+              },
+              {
+                "task": 5,
+                "classes": [
+                  "ship",
+                  "truck"
+                ],
+                "current_task_accuracy": 0.8215,
+                "seen_accuracy": 0.7691,
+                "previous_task_accuracy": {
+                  "task_1": 0.82,
+                  "task_2": 0.6685,
+                  "task_3": 0.72,
+                  "task_4": 0.8155
+                },
+                "average_accuracy": 0.7691,
+                "forgetting": {
+                  "task_1": 0.040000000000000036,
+                  "task_2": 0.05400000000000005,
+                  "task_3": 0.030000000000000027,
+                  "task_4": 0.057499999999999996
+                },
+                "training_loss": [
+                  0.6061352415929867,
+                  0.561169478334958,
+                  0.5470823973794526,
+                  0.5227518632442136,
+                  0.5221897574919688
+                ],
+                "training_time_seconds": 27.040240399999675,
+                "task_accuracies": [
+                  0.82,
+                  0.6685,
+                  0.72,
+                  0.8155,
+                  0.8215
+                ]
+              }
+            ],
+            "final_accuracy": 0.7691,
+            "final_seen_accuracy": 0.7691,
+            "total_training_time_seconds": 114.1006484999998
+          },
+          {
+            "seed": 123,
+            "scenario": "task",
+            "ewc_lambda": 100.0,
+            "replay_per_task": 0,
+            "tasks": [
+              {
+                "task": 1,
+                "classes": [
+                  "airplane",
+                  "automobile"
+                ],
+                "current_task_accuracy": 0.857,
+                "seen_accuracy": 0.857,
+                "previous_task_accuracy": {},
+                "average_accuracy": 0.857,
+                "forgetting": {},
+                "training_loss": [
+                  0.49255016068869,
+                  0.4009369811679743,
+                  0.38032300261002555,
+                  0.35379302860060824,
+                  0.3436809902704215
+                ],
+                "training_time_seconds": 14.680507000000944,
+                "task_accuracies": [
+                  0.857
+                ]
+              },
+              {
+                "task": 2,
+                "classes": [
+                  "bird",
+                  "cat"
+                ],
+                "current_task_accuracy": 0.7355,
+                "seen_accuracy": 0.76875,
+                "previous_task_accuracy": {
+                  "task_1": 0.802
+                },
+                "average_accuracy": 0.76875,
+                "forgetting": {
+                  "task_1": 0.05499999999999994
+                },
+                "training_loss": [
+                  0.6073023299627667,
+                  0.5689480957351153,
+                  0.5664094090461731,
+                  0.5618012215517745,
+                  0.5481223433832579
+                ],
+                "training_time_seconds": 20.261700199998813,
+                "task_accuracies": [
+                  0.802,
+                  0.7355
+                ]
+              },
+              {
+                "task": 3,
+                "classes": [
+                  "deer",
+                  "dog"
+                ],
+                "current_task_accuracy": 0.7615,
+                "seen_accuracy": 0.7578333333333332,
+                "previous_task_accuracy": {
+                  "task_1": 0.805,
+                  "task_2": 0.707
+                },
+                "average_accuracy": 0.7578333333333332,
+                "forgetting": {
+                  "task_1": 0.051999999999999935,
+                  "task_2": 0.02850000000000008
+                },
+                "training_loss": [
+                  0.5924682545511029,
+                  0.5427084927317463,
+                  0.5290798884403857,
+                  0.5243058962912499,
+                  0.5222542587714859
+                ],
+                "training_time_seconds": 22.95485919999919,
+                "task_accuracies": [
+                  0.805,
+                  0.707,
+                  0.7615
+                ]
+              },
+              {
+                "task": 4,
+                "classes": [
+                  "frog",
+                  "horse"
+                ],
+                "current_task_accuracy": 0.798,
+                "seen_accuracy": 0.7533749999999999,
+                "previous_task_accuracy": {
+                  "task_1": 0.7665,
+                  "task_2": 0.693,
+                  "task_3": 0.756
+                },
+                "average_accuracy": 0.7533749999999999,
+                "forgetting": {
+                  "task_1": 0.09050000000000002,
+                  "task_2": 0.04250000000000009,
+                  "task_3": 0.005499999999999949
+                },
+                "training_loss": [
+                  0.5791277602503572,
+                  0.5139916071408912,
+                  0.48960523816603646,
+                  0.4701508600500566,
+                  0.46398053855835636
+                ],
+                "training_time_seconds": 25.338984599999094,
+                "task_accuracies": [
+                  0.7665,
+                  0.693,
+                  0.756,
+                  0.798
+                ]
+              },
+              {
+                "task": 5,
+                "classes": [
+                  "ship",
+                  "truck"
+                ],
+                "current_task_accuracy": 0.8185,
+                "seen_accuracy": 0.7651,
+                "previous_task_accuracy": {
+                  "task_1": 0.812,
+                  "task_2": 0.6665,
+                  "task_3": 0.7265,
+                  "task_4": 0.802
+                },
+                "average_accuracy": 0.7651,
+                "forgetting": {
+                  "task_1": 0.04499999999999993,
+                  "task_2": 0.06900000000000006,
+                  "task_3": 0.03499999999999992,
+                  "task_4": -0.0040000000000000036
+                },
+                "training_loss": [
+                  0.5931596099575863,
+                  0.5442617501639113,
+                  0.5350320622136321,
+                  0.5302958130081997,
+                  0.519092357988599
+                ],
+                "training_time_seconds": 28.91918000000078,
+                "task_accuracies": [
+                  0.812,
+                  0.6665,
+                  0.7265,
+                  0.802,
+                  0.8185
+                ]
+              }
+            ],
+            "final_accuracy": 0.7651,
+            "final_seen_accuracy": 0.7651,
+            "total_training_time_seconds": 112.15523099999882
+          },
+          {
+            "seed": 456,
+            "scenario": "task",
+            "ewc_lambda": 100.0,
+            "replay_per_task": 0,
+            "tasks": [
+              {
+                "task": 1,
+                "classes": [
+                  "airplane",
+                  "automobile"
+                ],
+                "current_task_accuracy": 0.8575,
+                "seen_accuracy": 0.8575,
+                "previous_task_accuracy": {},
+                "average_accuracy": 0.8575,
+                "forgetting": {},
+                "training_loss": [
+                  0.4929492292524893,
+                  0.41284766868699957,
+                  0.3763739187506181,
+                  0.3558525710920744,
+                  0.3517914146562166
+                ],
+                "training_time_seconds": 16.251898800001072,
+                "task_accuracies": [
+                  0.8575
+                ]
+              },
+              {
+                "task": 2,
+                "classes": [
+                  "bird",
+                  "cat"
+                ],
+                "current_task_accuracy": 0.7345,
+                "seen_accuracy": 0.777,
+                "previous_task_accuracy": {
+                  "task_1": 0.8195
+                },
+                "average_accuracy": 0.777,
+                "forgetting": {
+                  "task_1": 0.038000000000000034
+                },
+                "training_loss": [
+                  0.5949874716469005,
+                  0.5600747017166282,
+                  0.5567288421377351,
+                  0.5509827880165244,
+                  0.5429269844972635
+                ],
+                "training_time_seconds": 20.12298490000103,
+                "task_accuracies": [
+                  0.8195,
+                  0.7345
+                ]
+              },
+              {
+                "task": 3,
+                "classes": [
+                  "deer",
+                  "dog"
+                ],
+                "current_task_accuracy": 0.7535,
+                "seen_accuracy": 0.7223333333333333,
+                "previous_task_accuracy": {
+                  "task_1": 0.7425,
+                  "task_2": 0.671
+                },
+                "average_accuracy": 0.7223333333333333,
+                "forgetting": {
+                  "task_1": 0.11499999999999999,
+                  "task_2": 0.0635
+                },
+                "training_loss": [
+                  0.5716100353983384,
+                  0.5364093757882903,
+                  0.5290091916730132,
+                  0.5239421257489845,
+                  0.515882234030132
+                ],
+                "training_time_seconds": 21.767237300000488,
+                "task_accuracies": [
+                  0.7425,
+                  0.671,
+                  0.7535
+                ]
+              },
+              {
+                "task": 4,
+                "classes": [
+                  "frog",
+                  "horse"
+                ],
+                "current_task_accuracy": 0.864,
+                "seen_accuracy": 0.769125,
+                "previous_task_accuracy": {
+                  "task_1": 0.75,
+                  "task_2": 0.718,
+                  "task_3": 0.7445
+                },
+                "average_accuracy": 0.769125,
+                "forgetting": {
+                  "task_1": 0.10750000000000004,
+                  "task_2": 0.01650000000000007,
+                  "task_3": 0.008999999999999897
+                },
+                "training_loss": [
+                  0.5714638599112064,
+                  0.4900831180282786,
+                  0.4629744249808637,
+                  0.45395421076424514,
+                  0.43416820447656174
+                ],
+                "training_time_seconds": 23.048602299999402,
+                "task_accuracies": [
+                  0.75,
+                  0.718,
+                  0.7445,
+                  0.864
+                ]
+              },
+              {
+                "task": 5,
+                "classes": [
+                  "ship",
+                  "truck"
+                ],
+                "current_task_accuracy": 0.8045,
+                "seen_accuracy": 0.7796,
+                "previous_task_accuracy": {
+                  "task_1": 0.83,
+                  "task_2": 0.703,
+                  "task_3": 0.727,
+                  "task_4": 0.8335
+                },
+                "average_accuracy": 0.7796,
+                "forgetting": {
+                  "task_1": 0.02750000000000008,
+                  "task_2": 0.031500000000000083,
+                  "task_3": 0.026499999999999968,
+                  "task_4": 0.03049999999999997
+                },
+                "training_loss": [
+                  0.5970309071148499,
+                  0.5389197702649273,
+                  0.5293576419353485,
+                  0.5213668289818342,
+                  0.5142884567568574
+                ],
+                "training_time_seconds": 28.107976400000553,
+                "task_accuracies": [
+                  0.83,
+                  0.703,
+                  0.727,
+                  0.8335,
+                  0.8045
+                ]
+              }
+            ],
+            "final_accuracy": 0.7796,
+            "final_seen_accuracy": 0.7796,
+            "total_training_time_seconds": 109.29869970000254
+          }
+        ],
+        "mean_final_accuracy": 0.7712666666666667,
+        "mean_final_seen_accuracy": 0.7712666666666667,
+        "training_time_total_seconds": 335.55457920000117,
+        "training_time_mean_seconds_per_seed": 111.8515264000004
+      },
+      "snn": {
+        "runs": [
+          {
+            "seed": 42,
+            "scenario": "task",
+            "ewc_lambda": 100.0,
+            "replay_per_task": 0,
+            "tasks": [
+              {
+                "task": 1,
+                "classes": [
+                  "airplane",
+                  "automobile"
+                ],
+                "current_task_accuracy": 0.832,
+                "seen_accuracy": 0.832,
+                "previous_task_accuracy": {},
+                "average_accuracy": 0.832,
+                "forgetting": {},
+                "training_loss": [
+                  0.5201025503345683,
+                  0.44682048544099057,
+                  0.4263987016828754,
+                  0.40534438739849044,
+                  0.4007210723961456
+                ],
+                "training_time_seconds": 83.04861170000004,
+                "task_accuracies": [
+                  0.832
+                ]
+              },
+              {
+                "task": 2,
+                "classes": [
+                  "bird",
+                  "cat"
+                ],
+                "current_task_accuracy": 0.7005,
+                "seen_accuracy": 0.731,
+                "previous_task_accuracy": {
+                  "task_1": 0.7615
+                },
+                "average_accuracy": 0.731,
+                "forgetting": {
+                  "task_1": 0.07050000000000001
+                },
+                "training_loss": [
+                  0.6225068131579629,
+                  0.5942730194405664,
+                  0.5873733098748364,
+                  0.5857393304003945,
+                  0.5813466755649711
+                ],
+                "training_time_seconds": 95.96559270000034,
+                "task_accuracies": [
+                  0.7615,
+                  0.7005
+                ]
+              },
+              {
+                "task": 3,
+                "classes": [
+                  "deer",
+                  "dog"
+                ],
+                "current_task_accuracy": 0.7325,
+                "seen_accuracy": 0.7263333333333333,
+                "previous_task_accuracy": {
+                  "task_1": 0.7355,
+                  "task_2": 0.711
+                },
+                "average_accuracy": 0.7263333333333333,
+                "forgetting": {
+                  "task_1": 0.09649999999999992,
+                  "task_2": -0.010499999999999954
+                },
+                "training_loss": [
+                  0.6245701528048213,
+                  0.5935538675211653,
+                  0.5865954364402385,
+                  0.5838110318666772,
+                  0.5809520143496839
+                ],
+                "training_time_seconds": 115.90659999999843,
+                "task_accuracies": [
+                  0.7355,
+                  0.711,
+                  0.7325
+                ]
+              },
+              {
+                "task": 4,
+                "classes": [
+                  "frog",
+                  "horse"
+                ],
+                "current_task_accuracy": 0.835,
+                "seen_accuracy": 0.7602500000000001,
+                "previous_task_accuracy": {
+                  "task_1": 0.78,
+                  "task_2": 0.7125,
+                  "task_3": 0.7135
+                },
+                "average_accuracy": 0.7602500000000001,
+                "forgetting": {
+                  "task_1": 0.051999999999999935,
+                  "task_2": -0.0015000000000000568,
+                  "task_3": 0.019000000000000017
+                },
+                "training_loss": [
+                  0.6403744779055631,
+                  0.5853533446788788,
+                  0.5903224194351631,
+                  0.5605936925622481,
+                  0.5521057327336902
+                ],
+                "training_time_seconds": 121.41145260000121,
+                "task_accuracies": [
+                  0.78,
+                  0.7125,
+                  0.7135,
+                  0.835
+                ]
+              },
+              {
+                "task": 5,
+                "classes": [
+                  "ship",
+                  "truck"
+                ],
+                "current_task_accuracy": 0.7855,
+                "seen_accuracy": 0.7646,
+                "previous_task_accuracy": {
+                  "task_1": 0.806,
+                  "task_2": 0.7125,
+                  "task_3": 0.707,
+                  "task_4": 0.812
+                },
+                "average_accuracy": 0.7646,
+                "forgetting": {
+                  "task_1": 0.025999999999999912,
+                  "task_2": 0.0,
+                  "task_3": 0.025500000000000078,
+                  "task_4": 0.02299999999999991
+                },
+                "training_loss": [
+                  0.6484828696975226,
+                  0.6250096559524536,
+                  0.6299934953073912,
+                  0.623999115786975,
+                  0.617683723380294
+                ],
+                "training_time_seconds": 218.34183359999952,
+                "task_accuracies": [
+                  0.806,
+                  0.7125,
+                  0.707,
+                  0.812,
+                  0.7855
+                ]
+              }
+            ],
+            "final_accuracy": 0.7646,
+            "final_seen_accuracy": 0.7646,
+            "total_training_time_seconds": 634.6740905999995
+          },
+          {
+            "seed": 123,
+            "scenario": "task",
+            "ewc_lambda": 100.0,
+            "replay_per_task": 0,
+            "tasks": [
+              {
+                "task": 1,
+                "classes": [
+                  "airplane",
+                  "automobile"
+                ],
+                "current_task_accuracy": 0.807,
+                "seen_accuracy": 0.807,
+                "previous_task_accuracy": {},
+                "average_accuracy": 0.807,
+                "forgetting": {},
+                "training_loss": [
+                  0.5230787475652332,
+                  0.44690246559396574,
+                  0.42398414204392254,
+                  0.402856925997553,
+                  0.40328263312200957
+                ],
+                "training_time_seconds": 75.18165289999888,
+                "task_accuracies": [
+                  0.807
+                ]
+              },
+              {
+                "task": 2,
+                "classes": [
+                  "bird",
+                  "cat"
+                ],
+                "current_task_accuracy": 0.7205,
+                "seen_accuracy": 0.75375,
+                "previous_task_accuracy": {
+                  "task_1": 0.787
+                },
+                "average_accuracy": 0.75375,
+                "forgetting": {
+                  "task_1": 0.020000000000000018
+                },
+                "training_loss": [
+                  0.6295832780343068,
+                  0.6034990217112288,
+                  0.6011276803439176,
+                  0.5901189408724821,
+                  0.5865190263035931
+                ],
+                "training_time_seconds": 112.93424290000075,
+                "task_accuracies": [
+                  0.787,
+                  0.7205
+                ]
+              },
+              {
+                "task": 3,
+                "classes": [
+                  "deer",
+                  "dog"
+                ],
+                "current_task_accuracy": 0.753,
+                "seen_accuracy": 0.7345,
+                "previous_task_accuracy": {
+                  "task_1": 0.7335,
+                  "task_2": 0.717
+                },
+                "average_accuracy": 0.7345,
+                "forgetting": {
+                  "task_1": 0.07350000000000001,
+                  "task_2": 0.0035000000000000586
+                },
+                "training_loss": [
+                  0.6175488248656068,
+                  0.5955682200721547,
+                  0.5795049331610715,
+                  0.580377719070338,
+                  0.5780534793304491
+                ],
+                "training_time_seconds": 123.72639490000074,
+                "task_accuracies": [
+                  0.7335,
+                  0.717,
+                  0.753
+                ]
+              },
+              {
+                "task": 4,
+                "classes": [
+                  "frog",
+                  "horse"
+                ],
+                "current_task_accuracy": 0.8285,
+                "seen_accuracy": 0.74125,
+                "previous_task_accuracy": {
+                  "task_1": 0.728,
+                  "task_2": 0.7135,
+                  "task_3": 0.695
+                },
+                "average_accuracy": 0.74125,
+                "forgetting": {
+                  "task_1": 0.07900000000000007,
+                  "task_2": 0.007000000000000006,
+                  "task_3": 0.05800000000000005
+                },
+                "training_loss": [
+                  0.6627444292925582,
+                  0.6005295462246183,
+                  0.5828755120687847,
+                  0.568143058804017,
+                  0.5594100239156168
+                ],
+                "training_time_seconds": 103.28802170000017,
+                "task_accuracies": [
+                  0.728,
+                  0.7135,
+                  0.695,
+                  0.8285
+                ]
+              },
+              {
+                "task": 5,
+                "classes": [
+                  "ship",
+                  "truck"
+                ],
+                "current_task_accuracy": 0.7755,
+                "seen_accuracy": 0.756,
+                "previous_task_accuracy": {
+                  "task_1": 0.78,
+                  "task_2": 0.7305,
+                  "task_3": 0.6965,
+                  "task_4": 0.7975
+                },
+                "average_accuracy": 0.756,
+                "forgetting": {
+                  "task_1": 0.027000000000000024,
+                  "task_2": -0.010000000000000009,
+                  "task_3": 0.056499999999999995,
+                  "task_4": 0.031000000000000028
+                },
+                "training_loss": [
+                  0.6753830698472035,
+                  0.6521002770979193,
+                  0.6322939486443242,
+                  0.6386747714839404,
+                  0.6304716203786149
+                ],
+                "training_time_seconds": 102.05945460000112,
+                "task_accuracies": [
+                  0.78,
+                  0.7305,
+                  0.6965,
+                  0.7975,
+                  0.7755
+                ]
+              }
+            ],
+            "final_accuracy": 0.756,
+            "final_seen_accuracy": 0.756,
+            "total_training_time_seconds": 517.1897670000017
+          },
+          {
+            "seed": 456,
+            "scenario": "task",
+            "ewc_lambda": 100.0,
+            "replay_per_task": 0,
+            "tasks": [
+              {
+                "task": 1,
+                "classes": [
+                  "airplane",
+                  "automobile"
+                ],
+                "current_task_accuracy": 0.812,
+                "seen_accuracy": 0.812,
+                "previous_task_accuracy": {},
+                "average_accuracy": 0.812,
+                "forgetting": {},
+                "training_loss": [
+                  0.525847284854213,
+                  0.4559604495386534,
+                  0.4326643713667423,
+                  0.42105029051816917,
+                  0.4103162399952925
+                ],
+                "training_time_seconds": 65.46006549999947,
+                "task_accuracies": [
+                  0.812
+                ]
+              },
+              {
+                "task": 2,
+                "classes": [
+                  "bird",
+                  "cat"
+                ],
+                "current_task_accuracy": 0.7055,
+                "seen_accuracy": 0.7335,
+                "previous_task_accuracy": {
+                  "task_1": 0.7615
+                },
+                "average_accuracy": 0.7335,
+                "forgetting": {
+                  "task_1": 0.0505000000000001
+                },
+                "training_loss": [
+                  0.6155589924582953,
+                  0.586403484585919,
+                  0.5906367030324815,
+                  0.579821338759193,
+                  0.5762000630927991
+                ],
+                "training_time_seconds": 91.52484270000059,
+                "task_accuracies": [
+                  0.7615,
+                  0.7055
+                ]
+              },
+              {
+                "task": 3,
+                "classes": [
+                  "deer",
+                  "dog"
+                ],
+                "current_task_accuracy": 0.747,
+                "seen_accuracy": 0.7258333333333332,
+                "previous_task_accuracy": {
+                  "task_1": 0.743,
+                  "task_2": 0.6875
+                },
+                "average_accuracy": 0.7258333333333332,
+                "forgetting": {
+                  "task_1": 0.06900000000000006,
+                  "task_2": 0.018000000000000016
+                },
+                "training_loss": [
+                  0.6160167666930186,
+                  0.592037928632543,
+                  0.5815864559970324,
+                  0.576082247721998,
+                  0.5770804648157917
+                ],
+                "training_time_seconds": 101.94441670000015,
+                "task_accuracies": [
+                  0.743,
+                  0.6875,
+                  0.747
+                ]
+              },
+              {
+                "task": 4,
+                "classes": [
+                  "frog",
+                  "horse"
+                ],
+                "current_task_accuracy": 0.822,
+                "seen_accuracy": 0.743125,
+                "previous_task_accuracy": {
+                  "task_1": 0.777,
+                  "task_2": 0.6965,
+                  "task_3": 0.677
+                },
+                "average_accuracy": 0.743125,
+                "forgetting": {
+                  "task_1": 0.03500000000000003,
+                  "task_2": 0.009000000000000008,
+                  "task_3": 0.06999999999999995
+                },
+                "training_loss": [
+                  0.6441684636888625,
+                  0.5876278145403802,
+                  0.557811056134067,
+                  0.5690780908246583,
+                  0.5403107751773882
+                ],
+                "training_time_seconds": 102.03537049999977,
+                "task_accuracies": [
+                  0.777,
+                  0.6965,
+                  0.677,
+                  0.822
+                ]
+              },
+              {
+                "task": 5,
+                "classes": [
+                  "ship",
+                  "truck"
+                ],
+                "current_task_accuracy": 0.785,
+                "seen_accuracy": 0.7476,
+                "previous_task_accuracy": {
+                  "task_1": 0.778,
+                  "task_2": 0.7005,
+                  "task_3": 0.679,
+                  "task_4": 0.7955
+                },
+                "average_accuracy": 0.7476,
+                "forgetting": {
+                  "task_1": 0.03400000000000003,
+                  "task_2": 0.0050000000000000044,
+                  "task_3": 0.06799999999999995,
+                  "task_4": 0.026499999999999968
+                },
+                "training_loss": [
+                  0.6584671335884288,
+                  0.6326260732699044,
+                  0.6313842369031303,
+                  0.6200179902813102,
+                  0.6153015569795536
+                ],
+                "training_time_seconds": 103.47133469999972,
+                "task_accuracies": [
+                  0.778,
+                  0.7005,
+                  0.679,
+                  0.7955,
+                  0.785
+                ]
+              }
+            ],
+            "final_accuracy": 0.7476,
+            "final_seen_accuracy": 0.7476,
+            "total_training_time_seconds": 464.4360300999997
+          }
+        ],
+        "mean_final_accuracy": 0.7560666666666668,
+        "mean_final_seen_accuracy": 0.7560666666666668,
+        "training_time_total_seconds": 1616.299887700001,
+        "training_time_mean_seconds_per_seed": 538.7666292333337
+      }
+    }
+  ]
+}

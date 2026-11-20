@@ -7,10 +7,18 @@ import json
 from pathlib import Path
 from typing import Any
 
-from baseline.baselineAnn import DEFAULT_SEEDS
 from ewc.annEwc import run_experiment as run_ann_ewc
 from ewc.snnEwc import run_experiment as run_snn_ewc
 from baseline.runBaselineExperiments import summarize_model_results
+
+# Random seeds; every condition runs ANN and SNN once per seed.
+# Keep these the same as the baseline seeds you compare against.
+SEEDS = (
+    # 42,
+    # 123, 
+    # 456,
+    789, 
+    1011)
 
 # Images stored per finished task when a condition has "replay": True.
 REPLAY_PER_TASK = 200
@@ -18,7 +26,7 @@ REPLAY_PER_TASK = 200
 EWC_EXPERIMENT_CONDITIONS = (
     {"epochs": 1, "time_steps": 2, "ewc_lambda": 100.0, "replay": False},
     {"epochs": 2, "time_steps": 4, "ewc_lambda": 100.0, "replay": False},
-    {"epochs": 5, "time_steps": 7, "ewc_lambda": 100.0, "replay": False},
+    # {"epochs": 5, "time_steps": 7, "ewc_lambda": 100.0, "replay": False},
 )
 
 
@@ -34,13 +42,13 @@ def run_grid(
     output_path: str | Path = "results/ewc_experiments.json",
     fisher_samples: int = 1024,
     fisher_method: str = "empirical",
-    scenario: str = "task", # or set to "class" for 10-way
+    scenario: str = "class", # 'task' or set to "class" for 10-way
     replay_per_task: int | None = None,
     joint: bool = False,
 ) -> dict[str, Any]:
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
-    results: dict[str, Any] = {"seeds": list(DEFAULT_SEEDS), "conditions": []}
+    results: dict[str, Any] = {"seeds": list(SEEDS), "conditions": []}
     for number, condition in enumerate(EWC_EXPERIMENT_CONDITIONS, 1):
         # --ewc-lambda on the command line overrides every condition (e.g. 0 for replay-only runs).
         lam = condition["ewc_lambda"] if ewc_lambda is None else ewc_lambda
@@ -59,7 +67,7 @@ def run_grid(
             data_dir=data_dir, batch_size=batch_size, epochs=condition["epochs"],
             learning_rate=learning_rate, ewc_lambda=lam,
             num_workers=num_workers, max_tasks=max_tasks, progress=progress,
-            seeds=DEFAULT_SEEDS,
+            seeds=SEEDS,
             fisher_samples=fisher_samples, fisher_method=fisher_method,
             scenario=scenario, replay_per_task=per_task, joint=joint,
         )
@@ -67,7 +75,7 @@ def run_grid(
             data_dir=data_dir, batch_size=batch_size, epochs=condition["epochs"],
             time_steps=condition["time_steps"], learning_rate=learning_rate,
             ewc_lambda=lam, num_workers=num_workers, max_tasks=max_tasks,
-            progress=progress, seeds=DEFAULT_SEEDS,
+            progress=progress, seeds=SEEDS,
             fisher_samples=fisher_samples, fisher_method=fisher_method,
             scenario=scenario, replay_per_task=per_task, joint=joint,
         )
@@ -95,7 +103,7 @@ if __name__ == "__main__":
     parser.add_argument("--ewc-lambda", type=float, default=None, help="override every condition's lambda")
     parser.add_argument("--fisher-samples", type=int, default=1024)
     parser.add_argument("--fisher-method", choices=("empirical", "sampled"), default="empirical")
-    parser.add_argument("--scenario", choices=("class", "task"), default="task")
+    parser.add_argument("--scenario", choices=("class", "task"), default="class")
     parser.add_argument("--replay", type=int, default=None, help="override every condition: images per old task (0 = off)")
     parser.add_argument("--joint", action="store_true")
     parser.add_argument("--num-workers", type=int, default=0)

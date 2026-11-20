@@ -117,7 +117,7 @@ def main() -> None:
     parser.add_argument("--num-workers", type=int, default=0)
     parser.add_argument("--max-tasks", type=int, default=None)
     parser.add_argument("--output", default="results/baseline_experiments.json")
-    parser.add_argument("--scenario", choices=("class", "task"), default="class")
+    parser.add_argument("--scenario", choices=("class", "task"), default="task")
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--no-progress", action="store_true")
     args = parser.parse_args()

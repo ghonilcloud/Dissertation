@@ -126,7 +126,7 @@ def train_task(
             batches += 1
         if progress:
             print(
-                f"Task {task_number}, epoch {epoch}/{epochs}, "
+                f"[{time.strftime('%H:%M:%S')}] Task {task_number}, epoch {epoch}/{epochs}, "
                 f"loss: {total_loss / batches:.4f}"
             )
         losses.append(total_loss / batches)
@@ -159,6 +159,8 @@ def run_experiment(
         raise ValueError("scenario must be 'class' or 'task'")
     all_results = []
     for run_seed in seeds:
+        if progress:
+            print(f"[{time.strftime('%H:%M:%S')}] ANN-baseline seed {run_seed} starting")
         all_results.append(
             _run_single_experiment(
                 data_dir=data_dir,
@@ -242,6 +244,8 @@ def _run_single_experiment(
             progress=progress,
         )
         total_training_time += training_time
+        if progress:
+            print(f"[{time.strftime('%H:%M:%S')}] Task {task.number} done ({training_time:.1f}s training)")
         seen_classes.extend(task.classes)
         task_accuracies = []
         for index in range(task.number):
